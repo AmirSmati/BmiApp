@@ -4,19 +4,20 @@ import React, { useEffect, useState } from 'react';
 const Bloca = () => {
   const [Height, setHeight] = useState(170);
   const [Weight, setWeight] = useState(60);
-  const [Bmi, setBmi] = useState();
+  const [Bmi, setBmi] = useState<number | string>();  // Change Bmi type to number | string
 
-  const handleChangeH = (event: any) => {
+  // Define proper types for event handlers
+  const handleChangeH = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     if (value !== '') {
-      setHeight(parseInt(value, 10)); // Turn the string into Number
+      setHeight(parseInt(value, 10)); // Turn the string into a number
     }
   };
 
-  const handleChangeW = (event: any) => {
+  const handleChangeW = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     if (value !== '') {
-      setWeight(parseInt(value, 10)); // Turn the string into Number
+      setWeight(parseInt(value, 10)); // Turn the string into a number
     }
   };
 
@@ -26,20 +27,24 @@ const Bloca = () => {
   };
 
   useEffect(() => {
-    setBmi(BmiCalc(Height, Weight)); // Update BMI whenever Height or Weight changes
+    setBmi(BmiCalc(Height, Weight)); // Set BMI as a string or number
   }, [Height, Weight]);
 
-  const Health = ({ bmi }) => {
-    let Answer = '';
+  const Health = ({ bmi }: { bmi: number | string }) => {
+    let Answer : React.ReactNode;
 
-    if (bmi <= 18.5) {
-      Answer = <p>You&apos;re underweight!</p>;
-    } else if (18.5 < bmi && bmi <= 24.9) {
-      Answer = <p>Your weight is normal.</p>;
-    } else if (24.9 < bmi && bmi < 29.9) {
-      Answer = <p>You&apos;re overweight!</p>;
-    } else if (30 < bmi) {
-      Answer = <p>You&apos;re obese, seek help!</p>;
+    if (typeof bmi === 'number' || bmi !== '') {
+      const bmiValue = parseFloat(bmi as string);
+
+      if (bmiValue <= 18.5) {
+        Answer = <p>You&apos;re underweight!</p>;
+      } else if (18.5 < bmiValue && bmiValue <= 24.9) {
+        Answer = <p>Your weight is normal.</p>;
+      } else if (24.9 < bmiValue && bmiValue < 29.9) {
+        Answer = <p>You&apos;re overweight!</p>;
+      } else if (30 < bmiValue) {
+        Answer = <p>You&apos;re obese, seek help!</p>;
+      }
     }
 
     return Answer;
@@ -98,7 +103,7 @@ const Bloca = () => {
             type="range"
             min={0}
             max={50}
-            value={Bmi || 0}
+            value={Bmi ? parseFloat(Bmi as string) : 0}
             className="range range-warning w-full"
             disabled // Disable the range input for BMI as it's not for user interaction
           />
@@ -113,7 +118,7 @@ const Bloca = () => {
         </div>
 
         <div className="mt-4">
-          <Health bmi={parseFloat(Bmi)} />
+          <Health bmi={Bmi || ''} />
         </div>
       </div>
     </div>
