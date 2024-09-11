@@ -102,18 +102,17 @@ const Bloca = () => {
           <input
             type="range"
             min={0}
-            max={50}
+            max={200}
             value={Bmi ? parseFloat(Bmi as string) : 0}
             className="range range-warning w-full"
             disabled // Disable the range input for BMI as it's not for user interaction
           />
           <div className="flex w-full justify-between text-xs">
             <span>0</span>
-            <span>10</span>
-            <span>20</span>
-            <span>30</span>
-            <span>40</span>
             <span>50</span>
+            <span>100</span>
+            <span>150</span>
+            <span>200</span>
           </div>
         </div>
 
