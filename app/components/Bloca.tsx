@@ -6,21 +6,21 @@ const Bloca = () => {
   const [Weight, setWeight] = useState(60);
   const [Bmi, setBmi] = useState();
 
-  const handleChangeH = (event) => {
-    const value = event.target.value; 
+  const handleChangeH = (event: any) => {
+    const value = event.target.value;
     if (value !== '') {
       setHeight(parseInt(value, 10)); // Turn the string into Number
     }
   };
 
-  const handleChangeW = (event) => {
-    const value = event.target.value; 
+  const handleChangeW = (event: any) => {
+    const value = event.target.value;
     if (value !== '') {
       setWeight(parseInt(value, 10)); // Turn the string into Number
     }
   };
 
-  const BmiCalc = (height, weight) => {
+  const BmiCalc = (height: number, weight: number) => {
     const heightInMeters = height / 100; // Convert height from cm to meters
     return (weight / (heightInMeters * heightInMeters)).toFixed(2); // Calculate BMI to 2 decimal places
   };
@@ -33,13 +33,13 @@ const Bloca = () => {
     let Answer = '';
 
     if (bmi <= 18.5) {
-      Answer = <p>You're underweight!</p>;
+      Answer = <p>You&apos;re underweight!</p>;
     } else if (18.5 < bmi && bmi <= 24.9) {
       Answer = <p>Your weight is normal.</p>;
     } else if (24.9 < bmi && bmi < 29.9) {
-      Answer = <p>You're overweight!</p>;
+      Answer = <p>You&apos;re overweight!</p>;
     } else if (30 < bmi) {
-      Answer = <p>You're obese, seek help!</p>;
+      Answer = <p>You&apos;re obese, seek help!</p>;
     }
 
     return Answer;
@@ -52,7 +52,7 @@ const Bloca = () => {
         <p className="text-sm md:text-base">Wanna know your BMI score?</p>
         <p className="text-sm md:text-base">Put your height and weight down below!</p>
 
-        <div className='w-full md:w-80 h-auto mb-4'>
+        <div className="w-full md:w-80 h-auto mb-4">
           <h2 className="card-title mb-2 text-sm md:text-base">Height: {Height / 100} m</h2>
           <input
             type="range"
@@ -71,7 +71,7 @@ const Bloca = () => {
           </div>
         </div>
 
-        <div className='w-full md:w-80 h-auto mb-4'>
+        <div className="w-full md:w-80 h-auto mb-4">
           <h2 className="card-title mb-2 text-sm md:text-base">Weight: {Weight} kg</h2>
           <input
             type="range"
@@ -91,9 +91,9 @@ const Bloca = () => {
         </div>
 
         <div className="divider divider-error mb-4">BMI Score</div>
-        <h2 className='font-medium text-lg md:text-xl'>{Bmi}</h2>
+        <h2 className="font-medium text-lg md:text-xl">{Bmi}</h2>
 
-        <div className='w-full md:w-80 h-auto'>
+        <div className="w-full md:w-80 h-auto">
           <input
             type="range"
             min={0}
